@@ -4,7 +4,7 @@ const int R2 = 14;
 const int R3 = 27;
 const int R4 = 26;
 //プロポからの入力用変数
-
+int rcv[] = {0, 0, 0, 0};
 
 void setup()
 {
@@ -13,9 +13,24 @@ void setup()
   pinMode(R3,INPUT);
   pinMode(R4,INPUT);
 
+  Serial.begin(9600); //シリアルモニタで確認
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop()
+{
+  rcv[0] = pulseIn(R1, HIGH);
+  rcv[1] = pulseIn(R1, HIGH);
+  rcv[2] = pulseIn(R1, HIGH);
+  rcv[3] = pulseIn(R1, HIGH);
 
+  Serial.print("___rcv[0]:");
+  Serial.print(rcv[0]);
+  Serial.print("___rcv[1]:");
+  Serial.print(rcv[1]);
+  Serial.print("___rcv[2]:");
+  Serial.print(rcv[2]);
+  Serial.print("___rcv[3]:");
+  Serial.println(rcv[3]);
+
+  delay(500);
 }
