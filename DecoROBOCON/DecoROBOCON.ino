@@ -14,14 +14,15 @@ void setup()
   pinMode(R4,INPUT);
 
   Serial.begin(9600); //シリアルモニタで確認
+  Serial.println("started");
 }
 
 void loop()
 {
   rcv[0] = pulseIn(R1, HIGH);
-  rcv[1] = pulseIn(R1, HIGH);
-  rcv[2] = pulseIn(R1, HIGH);
-  rcv[3] = pulseIn(R1, HIGH);
+  rcv[1] = pulseIn(R2, HIGH);
+  rcv[2] = pulseIn(R3, HIGH);
+  rcv[3] = pulseIn(R4, HIGH);
 
   Serial.print("___rcv[0]:");
   Serial.print(rcv[0]);
