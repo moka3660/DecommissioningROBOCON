@@ -25,10 +25,11 @@ void setup()
   pinMode(R3,INPUT);
   pinMode(R4,INPUT);
 
-  Aileron.attach(S1);
-  Elevator.attach(S2);
-  Throttle.attach(S3);
-  Ladder.attach(S4);
+  //servo.attach(pin, min, max)
+  Aileron.attach(Pin_ail, 1109, 1930);
+  Elevator.attach(Pin_ele, 1109, 1930);
+  Throttle.attach(Pin_thr, 1109, 1930);
+  Ladder.attach(Pin_lad, 1109, 1930);
 
   Serial.begin(9600); //シリアルモニタで確認
   Serial.println("started");
@@ -40,7 +41,7 @@ void loop()
   rcv[1] = pulseIn(R2, HIGH);
   rcv[2] = pulseIn(R3, HIGH);
   rcv[3] = pulseIn(R4, HIGH);
-
+/*
   Serial.print("___rcv[0]:");
   Serial.print(rcv[0]);
   Serial.print("___rcv[1]:");
@@ -49,13 +50,16 @@ void loop()
   Serial.print(rcv[2]);
   Serial.print("___rcv[3]:");
   Serial.println(rcv[3]);
-
+*/
   snd[0] = rcv[0];
   snd[1] = rcv[1];
   snd[2] = rcv[3];
   snd[3] = rcv[3];
 
-
+  Aileron.writeMicroseconds(snd[0]);
+  Elevator.writeMicroseconds(snd[1]);
+  Throttle.writeMicroseconds(snd[2]);
+  Ladder.writeMicroseconds(snd[3]);
 
   //delay(500);
 }
