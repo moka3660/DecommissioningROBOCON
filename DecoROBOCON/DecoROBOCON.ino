@@ -1,8 +1,8 @@
 //プロポからの入力ピン
-const int R1 = 12;
-const int R2 = 14;
-const int R3 = 27;
-const int R4 = 26;
+const int R1 = 2;
+const int R2 = 15;
+const int R3 = 14;
+const int R4 = 12;
 //プロポからの入力用変数
 int rcv[] = {0, 0, 0, 0};
 
