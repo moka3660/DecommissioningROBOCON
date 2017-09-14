@@ -18,6 +18,7 @@ const int Pin_lad = 10;
 //フラコンへの出力用変数
 int snd[] = {1520, 1520, 1109, 1520};
 
+
 void setup()
 {
   pinMode(R1,INPUT);
