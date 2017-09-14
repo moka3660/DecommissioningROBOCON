@@ -4,10 +4,10 @@ Servo Elevator;
 Servo Throttle;
 Servo Ladder;
 //プロポからの入力ピン
-const int R1 = 12;  //エルロン
-const int R2 = 14;  //エレベーター
-const int R3 = 27;  //スロットル
-const int R4 = 26;  //ラダー
+const int R1 = 2;
+const int R2 = 15;
+const int R3 = 14;
+const int R4 = 12;
 //プロポからの入力用変数
 int rcv[] = {0, 0, 0, 0};
 //フラコンへの出力ピン
