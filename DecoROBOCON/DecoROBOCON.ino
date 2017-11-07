@@ -1,3 +1,5 @@
+#include<Wire.h>
+#include<VL53L0X.h>
 #include<Servo.h>
 Servo Aileron;
 Servo Elevator;
@@ -17,6 +19,8 @@ const int Pout_thr = 8;
 const int Pout_lad = 9;
 //フラコンへの出力用変数
 int snd[] = {1520, 1520, 1109, 1520};
+//I2Cレーザ測距
+VL53L0X ahead;  //前方
 
 void setup()
 {
@@ -30,6 +34,12 @@ void setup()
   Elevator.attach(Pin_ele, 1109, 1930);
   Throttle.attach(Pin_thr, 1109, 1930);
   Ladder.attach(Pin_lad, 1109, 1930);
+
+  Wire.begin();
+
+  ahead.init();
+  ahead.setTimeout(500);
+  ahead.startContinuous();
 
   Serial.begin(9600); //シリアルモニタで確認
   Serial.println("started");
@@ -49,7 +59,12 @@ void loop()
   Serial.print("___rcv[2]:");
   Serial.print(rcv[2]);
   Serial.print("___rcv[3]:");
-  Serial.println(rcv[3]);
+  Serial.print(rcv[3]);
+
+  Serial.print("---Laser---___ahead:")
+  Serial.print(ahead.readRangeContinuousMillimeters());
+
+  Serial.println();
 
   snd[0] = rcv[0];
   snd[1] = rcv[1];
