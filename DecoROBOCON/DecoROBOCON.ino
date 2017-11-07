@@ -41,7 +41,7 @@ void loop()
   rcv[1] = pulseIn(Pin_ele, HIGH);
   rcv[2] = pulseIn(Pin_thr, HIGH);
   rcv[3] = pulseIn(Pin_lad, HIGH);
-/*
+
   Serial.print("___rcv[0]:");
   Serial.print(rcv[0]);
   Serial.print("___rcv[1]:");
@@ -50,7 +50,7 @@ void loop()
   Serial.print(rcv[2]);
   Serial.print("___rcv[3]:");
   Serial.println(rcv[3]);
-*/
+
   snd[0] = rcv[0];
   snd[1] = rcv[1];
   snd[2] = rcv[3];
