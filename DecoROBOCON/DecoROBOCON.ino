@@ -3,18 +3,18 @@ Servo Aileron;
 Servo Elevator;
 Servo Throttle;
 Servo Ladder;
-//プロポからの入力ピン
-const int Pin_ail = 12;  //エルロン
-const int Pin_ele = 14;  //エレベーター
-const int Pin_thr = 15;  //スロットル
-const int Pin_lad = 2;   //ラダー
+//プロポからの入力ピ7
+const int Pin_ail = 2;  //エルロン
+const int Pin_ele = 3;  //エレベーター
+const int Pin_thr = 4;  //スロットル
+const int Pin_lad = 5;   //ラダー
 //プロポからの入力用変数
 int rcv[] = {0, 0, 0, 0};
 //フラコンへの出力ピン
-const int Pout_ail = 13;
-const int Pout_ele = 9;
-const int Pout_thr = 10;
-const int Pout_lad = 11;
+const int Pout_ail = 6;
+const int Pout_ele = 7;
+const int Pout_thr = 8;
+const int Pout_lad = 9;
 //フラコンへの出力用変数
 int snd[] = {1520, 1520, 1109, 1520};
 
