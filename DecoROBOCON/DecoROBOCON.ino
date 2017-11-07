@@ -61,7 +61,7 @@ void loop()
   Serial.print("___rcv[3]:");
   Serial.print(rcv[3]);
 
-  Serial.print("---Laser---___ahead:")
+  Serial.print("---Laser---___ahead:");
   Serial.print(ahead.readRangeContinuousMillimeters());
 
   Serial.println();
