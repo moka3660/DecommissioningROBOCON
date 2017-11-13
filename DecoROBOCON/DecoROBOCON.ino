@@ -5,7 +5,7 @@ Servo Aileron;
 Servo Elevator;
 Servo Throttle;
 Servo Ladder;
-//プロポからの入力ピ7
+//プロポからの入力ピン
 const int Pin_ail = 2;  //エルロン
 const int Pin_ele = 3;  //エレベーター
 const int Pin_thr = 4;  //スロットル
