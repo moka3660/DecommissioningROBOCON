@@ -68,7 +68,7 @@ void loop()
 
   snd[0] = rcv[0];
   snd[1] = rcv[1];
-  snd[2] = rcv[3];
+  snd[2] = rcv[2];
   snd[3] = rcv[3];
 
   Aileron.writeMicroseconds(snd[0]);

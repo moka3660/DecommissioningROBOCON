@@ -18,6 +18,8 @@ void setup()
 
   Serial.begin(9600); //シリアルモニタで確認
   Serial.println("started");
+
+  delay(1000);
 }
 
 void loop()
@@ -38,5 +40,5 @@ void loop()
 
   Serial.println();
 
-  //delay(500);
+  delay(50);
 }
