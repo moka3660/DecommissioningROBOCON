@@ -11,7 +11,10 @@ const int I_ele = 3;  //エレベーター
 const int I_thr = 4;  //スロットル
 const int I_lad = 5;   //ラダー
 //プロポからの入力用変数
-int rcv[] = {0, 0, 0, 0};
+const int rcv_times = 3;//入力の平均回数
+int rcv[rcv_times][4];
+int rcv_ave[4]={0,0,0,0};
+int rcv_count = 0;//入力平均用カウンタ
 //フラコンへの出力ピン
 const int O_ail = 6;
 const int O_ele = 7;
@@ -66,15 +69,18 @@ void loop()
 
   Serial.println();
 
-  snd[0] = rcv[0];
-  snd[1] = rcv[1];
-  snd[2] = rcv[2];
-  snd[3] = rcv[3];
+  //delay(500);
+}
+
+void output()
+{
+  snd[0] = rcv_ave[0];
+  snd[1] = rcv_ave[1];
+  snd[2] = rcv_ave[2];
+  snd[3] = rcv_ave[3];
 
   Aileron.writeMicroseconds(snd[0]);
   Elevator.writeMicroseconds(snd[1]);
   Throttle.writeMicroseconds(snd[2]);
   Ladder.writeMicroseconds(snd[3]);
-
-  //delay(500);
 }
