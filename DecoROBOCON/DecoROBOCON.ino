@@ -89,7 +89,7 @@ void loop()
   //平均
   for(int i=0;i<4;i++)
   {
-    rcv_ave[i] = rcv_sum / rcv_times;
+    rcv_ave[i] = rcv_sum[i] / rcv_times;
   }
 
 /*
