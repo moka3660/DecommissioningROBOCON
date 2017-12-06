@@ -13,7 +13,7 @@ const int I_lad = 5;   //ラダー
 //プロポからの入力用変数
 const int rcv_times = 3;//入力の平均回数
 int rcv[rcv_times][4];
-int rcv_ave[4]={0,0,0,0};
+int rcv_ave[4]={1520, 1520, 1109, 1520};
 int rcv_count = 0;//入力平均用カウンタ
 //フラコンへの出力ピン
 const int O_ail = 6;
@@ -46,15 +46,40 @@ void setup()
 
   Serial.begin(9600); //シリアルモニタで確認
   Serial.println("started");
+
+/*  //入力用配列rcvの初期化
+  for(int i=0;i<rcv_times;i++)
+  {
+    for(int j=0;j<4;j++)
+    {
+      rcv[i][j] = 0;
+    }
+  }
+*/
+
+  //rcvの中身を埋める
+  while(rcv_count < rcv_times)
+  {
+    rcv[rcv_count][0] = pulseIn(I_ail, HIGH);
+    rcv[rcv_count][1] = pulseIn(I_ele, HIGH);
+    rcv[rcv_count][2] = pulseIn(I_thr, HIGH);
+    rcv[rcv_count][3] = pulseIn(I_lad, HIGH);
+  }
 }
 
 void loop()
 {
-  rcv[0] = pulseIn(I_ail, HIGH);
-  rcv[1] = pulseIn(I_ele, HIGH);
-  rcv[2] = pulseIn(I_thr, HIGH);
-  rcv[3] = pulseIn(I_lad, HIGH);
+  if(rcv_count>=rcv_times)
+    rcv_count = 0;
 
+  rcv[rcv_count][0] = pulseIn(I_ail, HIGH);
+  rcv[rcv_count][1] = pulseIn(I_ele, HIGH);
+  rcv[rcv_count][2] = pulseIn(I_thr, HIGH);
+  rcv[rcv_count][3] = pulseIn(I_lad, HIGH);
+
+
+
+/*
   Serial.print("___rcv[0]:");
   Serial.print(rcv[0]);
   Serial.print("___rcv[1]:");
@@ -63,7 +88,7 @@ void loop()
   Serial.print(rcv[2]);
   Serial.print("___rcv[3]:");
   Serial.print(rcv[3]);
-
+*/
   Serial.print("---Laser---___ahead:");
   Serial.print(ahead.readRangeContinuousMillimeters());
 
