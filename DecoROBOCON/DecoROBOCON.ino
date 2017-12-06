@@ -13,6 +13,7 @@ const int I_lad = 5;   //ラダー
 //プロポからの入力用変数
 const int rcv_times = 3;//入力の平均回数
 int rcv[rcv_times][4];
+int rcv_sum[4];
 int rcv_ave[4]={1520, 1520, 1109, 1520};
 int rcv_count = 0;//入力平均用カウンタ
 //フラコンへの出力ピン
@@ -47,7 +48,7 @@ void setup()
   Serial.begin(9600); //シリアルモニタで確認
   Serial.println("started");
 
-/*  //入力用配列rcvの初期化
+  //入力用配列rcvの初期化
   for(int i=0;i<rcv_times;i++)
   {
     for(int j=0;j<4;j++)
@@ -55,7 +56,7 @@ void setup()
       rcv[i][j] = 0;
     }
   }
-*/
+
 
   //rcvの中身を埋める
   while(rcv_count < rcv_times)
@@ -71,13 +72,25 @@ void loop()
 {
   if(rcv_count>=rcv_times)
     rcv_count = 0;
-
+  //データ入力
   rcv[rcv_count][0] = pulseIn(I_ail, HIGH);
   rcv[rcv_count][1] = pulseIn(I_ele, HIGH);
   rcv[rcv_count][2] = pulseIn(I_thr, HIGH);
   rcv[rcv_count][3] = pulseIn(I_lad, HIGH);
-
-
+  rcv_count++;
+  //合計
+  for(int i=0;i<rcv_times;i++)
+  {
+    rcv_sum[0] += rcv[i][0];
+    rcv_sum[1] += rcv[i][1];
+    rcv_sum[2] += rcv[i][2];
+    rcv_sum[3] += rcv[i][3];
+  }
+  //平均
+  for(int i=0;i<4;i++)
+  {
+    rcv_ave[i] = rcv_sum / rcv_times;
+  }
 
 /*
   Serial.print("___rcv[0]:");
@@ -99,10 +112,10 @@ void loop()
 
 void output()
 {
-  snd[0] = rcv_ave[0];
-  snd[1] = rcv_ave[1];
-  snd[2] = rcv_ave[2];
-  snd[3] = rcv_ave[3];
+  for(int i=0;i<4;i++)
+  {
+    snd[i] = rcv_ave[i];
+  }
 
   Aileron.writeMicroseconds(snd[0]);
   Elevator.writeMicroseconds(snd[1]);
