@@ -2,15 +2,15 @@
 #include<VL53L0X.h>
 
 //I2Cレーザ測距
-VL53L0X ahead;  //前方
+VL53L0X laser;  //
 
 void setup()
 {
   Wire.begin();
 
-  ahead.init();
-  ahead.setTimeout(500);
-  ahead.startContinuous();
+  laser.init();
+  laser.setTimeout(500);
+  laser.startContinuous();
 
   Serial.begin(9600); //シリアルモニタで確認
   Serial.println("started");
@@ -19,8 +19,8 @@ void setup()
 void loop()
 {
 
-  Serial.print("---Laser---___ahead:");
-  Serial.print(ahead.readRangeContinuousMillimeters());
+  Serial.print("---Laser---");
+  Serial.print(laser.readRangeContinuousMillimeters());
 
   Serial.println();
 
