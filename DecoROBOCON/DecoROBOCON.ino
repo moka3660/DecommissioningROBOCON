@@ -65,6 +65,7 @@ void setup()
     rcv[rcv_count][1] = pulseIn(I_ele, HIGH);
     rcv[rcv_count][2] = pulseIn(I_thr, HIGH);
     rcv[rcv_count][3] = pulseIn(I_lad, HIGH);
+    rcv_count++;
   }
 }
 
