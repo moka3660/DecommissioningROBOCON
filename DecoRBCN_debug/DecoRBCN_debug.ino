@@ -79,6 +79,11 @@ void loop()
   rcv[rcv_count][2] = pulseIn(I_thr, HIGH);
   rcv[rcv_count][3] = pulseIn(I_lad, HIGH);
   rcv_count++;
+  //SUMリセット
+  for(int i=0;i<4;i++)
+  {
+    rcv_sum[i] = 0;
+  }
   //合計
   for(int i=0;i<rcv_times;i++)
   {
