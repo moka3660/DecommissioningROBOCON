@@ -98,7 +98,7 @@ void loop()
     rcv_ave[i] = rcv_sum[i] / rcv_times;
   }
 
-
+/*
   Serial.print("___rcv[0]:");
   Serial.print(rcv_ave[0]);
   Serial.print("___rcv[1]:");
@@ -107,7 +107,7 @@ void loop()
   Serial.print(rcv_ave[2]);
   Serial.print("___rcv[3]:");
   Serial.print(rcv_ave[3]);
-
+*/ 
   Serial.print("---Laser---___ahead:");
   Serial.print(ahead.readRangeContinuousMillimeters());
 
