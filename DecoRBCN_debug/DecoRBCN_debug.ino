@@ -11,7 +11,7 @@ const int I_ele = 3;  //エレベーター
 const int I_thr = 4;  //スロットル
 const int I_lad = 5;   //ラダー
 //プロポからの入力用変数
-const int rcv_times = 3;//入力の平均回数
+const int rcv_times = 5;//入力の平均回数
 int rcv[rcv_times][4];
 int rcv_sum[4];
 int rcv_ave[4]={1520, 1520, 1109, 1520};
