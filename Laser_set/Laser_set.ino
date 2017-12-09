@@ -19,8 +19,10 @@ void setup()
 void loop()
 {
 
-  Serial.print("---Laser---");
+  Serial.print("---Laser[mm]---");
   Serial.print(laser.readRangeContinuousMillimeters());
+  Serial.print("---Address----");
+  Serial.print(laser.getAddress());
 
   Serial.println();
 
