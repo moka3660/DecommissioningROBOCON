@@ -10,6 +10,8 @@ void setup()
 
   laser.init();
   laser.setTimeout(500);
+//  laser.setAddress(21);
+  laser.writeReg(0x52, 0x21);
   laser.startContinuous();
 
   Serial.begin(9600); //シリアルモニタで確認
