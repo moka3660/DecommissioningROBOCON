@@ -8,6 +8,8 @@ void setup()
 {
   Wire.begin();
 
+  pinMode(6,OUTPUT);
+
   laser.init();
   laser.setTimeout(500);
 //  laser.setAddress(21);
@@ -20,13 +22,23 @@ void setup()
 
 void loop()
 {
-
-  Serial.print("---Laser[mm]---");
+  digitalWrite(6,HIGH);
+  Serial.print("HIGH---Laser[mm]---");
   Serial.print(laser.readRangeContinuousMillimeters());
   Serial.print("---Address----");
   Serial.print(laser.getAddress());
 
   Serial.println();
 
-  //delay(500);
+  delay(500);
+
+  digitalWrite(6,LOW);
+  Serial.print("LOW---Laser[mm]---");
+  Serial.print(laser.readRangeContinuousMillimeters());
+  Serial.print("---Address----");
+  Serial.print(laser.getAddress());
+
+  Serial.println();
+
+  delay(500);
 }
