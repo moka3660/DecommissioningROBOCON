@@ -40,7 +40,6 @@ void loop()
   Serial.print("---Laser---:");
   Serial.print(distance);
   Serial.print("------------");
-//  Serial.print(Laser.readRangeContinuousMillimeters());
 
   Serial.println();
 
