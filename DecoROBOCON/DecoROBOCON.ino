@@ -28,7 +28,7 @@ void setup()
 void loop()
 {
   distance = Laser.readRangeContinuousMillimeters();
-  if(dis_min <= distance && distance <= dis_max)
+  if(dis_min <= distance && distance <= dis_max)//
   {
     digitalWrite(LED,HIGH);
   }
