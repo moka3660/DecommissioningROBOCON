@@ -2,18 +2,24 @@
 #include<VL53L0X.h>
 
 const int LED = A0; //レーザ検知したら光らすLED
-int distance = 0;   //レーザ距離用変数
+const int dis_min = 100;  //レーザ下限距離
+const int dis_max = 1100; //レーザ上限距離
+
 //I2Cレーザ測距
-VL53L0X laser;  //下方
+VL53L0X Laser;  //下方
+
+int distance = 0;   //レーザ距離用変数
 
 void setup()
 {
   pinMode(LED,OUTPUT);
   Wire.begin();
 
-  laser.init();
-  laser.setTimeout(500);
-  laser.startContinuous();
+  Laser.init();
+  Laser.setTimeout(500);
+  Laser.startContinuous();
+
+  digitalWrite(LED,LOW);
 
   Serial.begin(9600); //シリアルモニタで確認
   Serial.println("started");
@@ -21,7 +27,15 @@ void setup()
 
 void loop()
 {
-  distance = laser.readRangeContinuousMillimeters();
+  distance = Laser.readRangeContinuousMillimeters();
+  if(dis_min <= distance && distance <= dis_max)
+  {
+    digitalWrite(LED,HIGH);
+  }
+  else
+  {
+    digitalWrite(LED,LOW);
+  }
 
   Serial.print("---Laser---:");
   Serial.print(distance);
