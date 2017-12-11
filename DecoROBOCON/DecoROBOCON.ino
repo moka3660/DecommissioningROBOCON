@@ -8,7 +8,7 @@ const int dis_max = 1100; //レーザ上限距離
 //I2Cレーザ測距
 VL53L0X Laser;  //下方
 
-int distance = 0;   //レーザ距離用変数
+uint16_t distance = 0;   //レーザ距離用変数
 
 void setup()
 {
@@ -39,6 +39,8 @@ void loop()
 
   Serial.print("---Laser---:");
   Serial.print(distance);
+  Serial.print("------------");
+//  Serial.print(Laser.readRangeContinuousMillimeters());
 
   Serial.println();
 
