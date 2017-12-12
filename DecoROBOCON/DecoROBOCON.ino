@@ -1,7 +1,7 @@
 #include<Wire.h>
 #include<VL53L0X.h>
 
-const int LED = A0; //レーザ検知したら光らすLED
+const int LED = A1; //レーザ検知したら光らすLED
 const int dis_min = 100;  //レーザ下限距離
 const int dis_max = 1100; //レーザ上限距離
 
