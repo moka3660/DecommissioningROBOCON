@@ -3,6 +3,8 @@
 
 const int LED = A1; //レーザ検知したら光らすLED
 const int dis_min = 100;  //レーザ下限距離
+const int dis_1 = 250;
+const int dis_2 = 550;
 const int dis_max = 1100; //レーザ上限距離
 
 //I2Cレーザ測距
@@ -28,9 +30,23 @@ void setup()
 void loop()
 {
   distance = Laser.readRangeContinuousMillimeters();
-  if(dis_min <= distance && distance <= dis_max)
+  if(dis_2 < distance && distance <= dis_max)  //dis_maxからdis_2
   {
     digitalWrite(LED,HIGH);
+  }
+  else if(dis_1 < distance && distance <= dis_2)  //dis_2からdis_1
+  {
+    digitalWrite(LED,HIGH);
+    delay(350);
+    digitalWrite(LED,LOW);
+    delay(350);
+  }
+  else if(dis_min < distance && distance <= dis_1)  //dis_1からdis_min
+  {
+    digitalWrite(LED,HIGH);
+    delay(100);
+    digitalWrite(LED,LOW);
+    delay(100);
   }
   else
   {
