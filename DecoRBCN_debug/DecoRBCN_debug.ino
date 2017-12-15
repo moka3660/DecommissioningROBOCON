@@ -37,9 +37,9 @@ void loop()
   else if(dis_1 < distance && distance <= dis_2)  //dis_2からdis_1
   {
     digitalWrite(LED,HIGH);
-    delay(300);
+    delay(350);
     digitalWrite(LED,LOW);
-    delay(300);
+    delay(350);
   }
   else if(dis_min < distance && distance <= dis_1)  //dis_1からdis_min
   {
@@ -53,9 +53,9 @@ void loop()
     digitalWrite(LED,LOW);
   }
 
-  Serial.print("---Laser---:");
+//  Serial.print("---Laser---:");
   Serial.print(distance);
-  Serial.print("------------");
+//  Serial.print("------------");
 
   Serial.println();
 
