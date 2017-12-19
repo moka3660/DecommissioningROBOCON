@@ -1,45 +1,27 @@
 #include<Wire.h>
 #include<VL53L0X.h>
-#include<Servo.h>
-Servo Aileron;
-Servo Elevator;
-Servo Throttle;
-Servo Ladder;
-//プロポからの入力ピン
-const int I_ail = 2;  //エルロン
-const int I_ele = 3;  //エレベーター
-const int I_thr = 4;  //スロットル
-const int I_lad = 5;   //ラダー
-//プロポからの入力用変数
-int rcv[] = {0, 0, 0, 0};
-//フラコンへの出力ピン
-const int O_ail = 6;
-const int O_ele = 7;
-const int O_thr = 8;
-const int O_lad = 9;
-//フラコンへの出力用変数
-int snd[] = {1520, 1520, 1109, 1520};
+
+const int LED = A1; //レーザ検知したら光らすLED
+const int dis_min = 65;  //レーザ下限距離
+const int dis_1 = 150;
+const int dis_2 = 550;
+const int dis_max = 1100; //レーザ上限距離
+
 //I2Cレーザ測距
-VL53L0X ahead;  //前方
+VL53L0X Laser;  //下方
+
+uint16_t distance = 0;   //レーザ距離用変数
 
 void setup()
 {
-  pinMode(I_ail,INPUT);
-  pinMode(I_ele,INPUT);
-  pinMode(I_thr,INPUT);
-  pinMode(I_lad,INPUT);
-
-  //servo.attach(pin, min, max)
-  Aileron.attach(O_ail, 1109, 1930);
-  Elevator.attach(O_ele, 1109, 1930);
-  Throttle.attach(O_thr, 1109, 1930);
-  Ladder.attach(O_lad, 1109, 1930);
-
+  pinMode(LED,OUTPUT);
   Wire.begin();
 
-  ahead.init();
-  ahead.setTimeout(500);
-  ahead.startContinuous();
+  Laser.init();
+  Laser.setTimeout(500);
+  Laser.startContinuous();
+
+  digitalWrite(LED,LOW);
 
   Serial.begin(9600); //シリアルモニタで確認
   Serial.println("started");
@@ -47,34 +29,35 @@ void setup()
 
 void loop()
 {
-  rcv[0] = pulseIn(I_ail, HIGH);
-  rcv[1] = pulseIn(I_ele, HIGH);
-  rcv[2] = pulseIn(I_thr, HIGH);
-  rcv[3] = pulseIn(I_lad, HIGH);
+  distance = Laser.readRangeContinuousMillimeters();
+  if(dis_2 < distance && distance <= dis_max)  //dis_maxからdis_2
+  {
+    digitalWrite(LED,HIGH);
+  }
+  else if(dis_1 < distance && distance <= dis_2)  //dis_2からdis_1
+  {
+    digitalWrite(LED,HIGH);
+    delay(300);
+    digitalWrite(LED,LOW);
+    delay(300);
+  }
+  else if(dis_min < distance && distance <= dis_1)  //dis_1からdis_min
+  {
+    digitalWrite(LED,HIGH);
+    delay(100);
+    digitalWrite(LED,LOW);
+    delay(100);
+  }
+  else
+  {
+    digitalWrite(LED,LOW);
+  }
 
-  Serial.print("___rcv[0]:");
-  Serial.print(rcv[0]);
-  Serial.print("___rcv[1]:");
-  Serial.print(rcv[1]);
-  Serial.print("___rcv[2]:");
-  Serial.print(rcv[2]);
-  Serial.print("___rcv[3]:");
-  Serial.print(rcv[3]);
-
-  Serial.print("---Laser---___ahead:");
-  Serial.print(ahead.readRangeContinuousMillimeters());
+  Serial.print("---Laser---:");
+  Serial.print(distance);
+  Serial.print("------------");
 
   Serial.println();
-
-  snd[0] = rcv[0];
-  snd[1] = rcv[1];
-  snd[2] = rcv[2];
-  snd[3] = rcv[3];
-
-  Aileron.writeMicroseconds(snd[0]);
-  Elevator.writeMicroseconds(snd[1]);
-  Throttle.writeMicroseconds(snd[2]);
-  Ladder.writeMicroseconds(snd[3]);
 
   //delay(500);
 }
